@@ -20,12 +20,30 @@ public class Q1 {
             drivewayStack.push(carcode);
             System.out.println("Cars inside the driveway: " + drivewayStack);
             System.out.println("Cars on the street: " + streetStack);
-        } else if (carcode < 0) {
+        } /*else if (carcode < 0) {
+            carcode = carcode * -1;
+            if (drivewayStack.contains(carcode)) {
+                ArrayDeque<Integer> tempStack = new ArrayDeque<>();
+                while (!drivewayStack.isEmpty()) {
+                    int num = drivewayStack.pop();
+                    if (carcode != num) {
+                        tempStack.push(num);
+                    } else if (carcode == num) {
+                        while (!tempStack.isEmpty()) {
+                            drivewayStack.push(tempStack.pop());
+                        }
+                        streetStack.push(num);
+                        break;
+                    }
+                }
+                System.out.println("Cars inside the driveway: " + drivewayStack);
+                System.out.println("Cars on the street: " + streetStack);*/
+
+        else if (carcode < 0) {
             carcode = carcode * -1;
             if (drivewayStack.contains(carcode)) {
                 while (!drivewayStack.isEmpty()) {
                     int num = drivewayStack.pop();
-                    System.out.println(num);
                     if (carcode != num) {
                         streetStack.push(num);
                     } else if (carcode == num) {
@@ -38,8 +56,8 @@ public class Q1 {
                 System.out.println("Cars inside the driveway: " + drivewayStack);
                 System.out.println("Cars on the street: " + streetStack);
             } else {
-                System.out.println("No car with such license inside the driveway, try again and Add a car using license: ");
-                carcode = sc.nextInt();
+                System.out.println("No car with such license inside the driveway, try again... ");
+
             }
         }
         }
