@@ -30,6 +30,8 @@ public class Q5 {
                 } else {
                     System.out.println("No flights in queue");
                 }
+            } else {
+                System.out.println("Enter a correct command...");
             }
 
         }

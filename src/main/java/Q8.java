@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Q8 {
 
-     static int precedence(String operator) { //Separate method that checks for correct precedence if it has multiple operators in the user input
+     private static int precedence(String operator) { //Separate method that checks for correct precedence if it has multiple operators in the user input
         switch (operator) { // Uses switch, which I found most efficient way to solve it and returns specific numbers based on the precedence importance - 2 being the most important
             case "+":
             case "-":
@@ -13,6 +13,33 @@ public class Q8 {
                 return 2;
             default:
                 return -1; // returns -1 and if the operators match it does not affect anything
+        }
+    }
+
+    private static int EvaluateTop(ArrayDeque<Integer> results, ArrayDeque<String> operators){
+        if (results.size() < 2) { //checks if there are more than two numbers in a stack, if not it does not start the operation because it would crash with an exception error
+            System.out.println("Not enough numbers to perform operation");
+            return 0;
+        }
+        int num1 = results.pop();
+        int num2 = results.pop();
+        String op = operators.pop();
+        switch (op) {
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            case "/":
+                if (num1 == 0) {
+                    System.out.println("Cannot divide by 0"); //checks for dividing if its zero and prints and error so that the program does not crash
+                    return 0;
+                }
+                return num2 / num1;
+            case "*":
+                return num1 * num2;
+            default:
+                System.out.println("Incorrect symbol...");
+                return 0;
         }
     }
     public static void main(String[] args) {
@@ -36,30 +63,9 @@ public class Q8 {
             } else if (line.equals("*") || line.equalsIgnoreCase("x") || line.equals("/") || line.equals("-") || line.equals("+")) { //Checks for operators with diffrent inputs
                 while (!operators.isEmpty() && precedence(line) <= precedence(operators.peek())) { //checks if operators are empty and also checks for precedence comparing latest input and latest operator in a stack, if there are two same operators as well
                     //EVALUATE THE TOP
-                    //Currently everytime we evaluate the top I have to copy this part, so I might do a method for it as it is more effective later
-                    if (results.size() < 2) { //checks if there are more than two numbers in a stack, if not it does not start the operation because it would crash with an exception error
-                        System.out.println("Not enough numbers to perform operation");
-                        break;
-                    }
-                        int num1 = results.pop();
-                        int num2 = results.pop();
-                        String op = operators.pop();
-                        switch (op) {
-                            case "+":
-                                result = num1 + num2;break;
-                            case "-":
-                                result = num1 - num2;break;
-                            case "/":
-                                if (num1 == 0) {
-                                    System.out.println("Cannot divide by 0");break; //checks for dividing if its zero and prints and error so that the program does not crash
-                                }
-                                result = num2 / num1;break;
-                            case "*":
-                                result = num1 * num2;break;
-                            default:
-                                System.out.println("Incorrect symbol...");break;
-                        } results.push(result);
-                        System.out.println("number pushed to the stack");
+                    result = EvaluateTop(results, operators);
+                    results.push(result);
+                    System.out.println("number pushed to the stack");
                 }
                 operators.push(line);
                 System.out.println("Operator pushed to the stack");
@@ -67,88 +73,21 @@ public class Q8 {
             } else if (line.equals(")")) {
                 while (!operators.isEmpty() && !operators.peek().equals("(")) {
                     //EVALUATE THE TOP
-                    if (results.size() < 2) {
-                        System.out.println("Not enough numbers to perform operation");
-                        break;
-                    }
-                    int num1 = results.pop();
-                    int num2 = results.pop();
-                    String op = operators.pop();
-                    switch (op) {
-                        case "+":
-                            result = num1 + num2;break;
-                        case "-":
-                            result = num1 - num2;break;
-                        case "/":
-                            if (num1 == 0) {
-                                System.out.println("Cannot divide by 0");break;
-                            }
-                            result = num2 / num1;break;
-                        case "*":
-                            result = num1 * num2;break;
-                        default:
-                            System.out.println("Incorrect symbol...");break;
-                    } results.push(result);
+                    result = EvaluateTop(results, operators);
+                    results.push(result);
                     System.out.println("number pushed to the stack");
                 }
                 operators.pop();
             } else if (line.isEmpty()) { //if we have no more input we evaluate the final numbers in results, redundant if we want to get results using the quit, to finalize - depends on the user
                 while (!operators.isEmpty()) {
                     //EVALUATE THE TOP
-                    if (results.size() < 2) {
-                        System.out.println("Not enough numbers to perform operation");
-                        break;
-                    }
-                    int num1 = results.pop();
-                    int num2 = results.pop();
-                    String op = operators.pop();
-                    switch (op) {
-                        case "+":
-                            result = num1 + num2;break;
-                        case "-":
-                            result = num1 - num2;break;
-                        case "/":
-                            if (num1 == 0) {
-                                System.out.println("Cannot divide by 0");break;
-                            }
-                            result = num2 / num1;break;
-                        case "*":
-                            result = num1 * num2;break;
-                        default:
-                            System.out.println("Incorrect symbol...");break;
-                    } results.push(result);
+                    result = EvaluateTop(results, operators);
+                    results.push(result);
                     System.out.println("number pushed to the stack");
                 }
             } else if (line.equalsIgnoreCase("quit")) { //I also implemented this to finalize the math equation when exiting - for better user experience
                 while (!operators.isEmpty()) {
-                    if (results.size() < 2) {
-                        System.out.println("Not enough numbers to perform operation");
-                        break;
-                    }
-                    int num1 = results.pop();
-                    int num2 = results.pop();
-                    String op = operators.pop();
-                    switch (op) {
-                        case "+":
-                            result = num1 + num2;
-                            break;
-                        case "-":
-                            result = num1 - num2;
-                            break;
-                        case "/":
-                            if (num1 == 0) {
-                                System.out.println("Cannot divide by 0");
-                                break;
-                            }
-                            result = num2 / num1;
-                            break;
-                        case "*":
-                            result = num1 * num2;
-                            break;
-                        default:
-                            System.out.println("Incorrect symbol...");
-                            break;
-                    }
+                    result = EvaluateTop(results, operators);
                     results.push(result);
                     System.out.println("number pushed to the stack");
                 }

@@ -24,9 +24,9 @@ public class Q2 {
         floodFill(startRow, startColumn);
 
         System.out.println("The grid: ");
-        for (int i = 0; i < grid.length; i++) {  //Iterates through 2D array and prints each cell of the grid
+        for (int i = 0; i < grid.length; i++) {  //Goes through the 2D array and prints each cell of the array
             for (int j = 0; j < grid[i].length; j++) {
-                System.out.printf("%3d", grid[i][j]); //3d for spacing
+                System.out.printf("%3d", grid[i][j]); //3d for spacing between each number
             }
             System.out.println();
         }
@@ -36,7 +36,7 @@ public class Q2 {
         ArrayDeque<Pair> pairStack = new ArrayDeque<>();
         pairStack.push(new Pair(startRow, startColumn));
         int number = 1;
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; //direction as follows: left(x-1), right(x+1), top(y+1), bottom(y-1)
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; //direction as follows: left(x-1), right(x+1), bottom(y-1), top(y+1)
 
         while (!pairStack.isEmpty()) {
             Pair current = pairStack.pop();
@@ -44,7 +44,7 @@ public class Q2 {
 
                 grid[current.row][current.column] = number++; //Number that is incremented with each pair added
                 for (int i = 0; i < directions.length; i++) { //This for loop iterates through all directions and checks if they are available and pushes a new pair if so
-                    int[] direction = directions[i];
+                    int[] direction = directions[i]; //changes directions based on the position of the for loop
                     pairStack.push(new Pair(current.row + direction[0], current.column + direction[1])); //Creates a new pair and pushes it into the stack to be processed later and uses first direction of directions array for correct floodfill logic(horizontally)
                 }
             }

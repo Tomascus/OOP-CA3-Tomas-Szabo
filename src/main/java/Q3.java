@@ -40,7 +40,7 @@ public class Q3 {
 
 
         for (Map.Entry<String, HashSet<Integer>> entry : map.entrySet()) {
-            System.out.println("Token: " + entry.getKey() + ", Lines: " + entry.getValue());
+            System.out.println("Token: " + entry.getKey() + " | Lines: " + entry.getValue());
         }
 
 
