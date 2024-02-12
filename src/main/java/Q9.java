@@ -16,7 +16,7 @@ public class Q9 {
     public static void main(String[] args) {
         ArrayDeque<Point> paths = new ArrayDeque<>();
         Scanner sc = new Scanner(System.in);
-        int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}; //direction as follows: left, down, right, up
+        int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}; //direction as follows: left, down, right, up (-1 means moving one up, down, etc...)
 
 
         //SHOW THE MAZE BEFORE THE START
